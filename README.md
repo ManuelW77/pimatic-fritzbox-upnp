@@ -1,6 +1,6 @@
 # pimatic-fritzbox-upnp
 
-get current used bandwidth from upnp
+get current used bandwidth from upnp (tested with my 7390 / OS 06.30)
 
 ![example](/example.png?raw=true "Example")
 
