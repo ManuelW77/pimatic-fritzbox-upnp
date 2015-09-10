@@ -17,9 +17,12 @@ or
 
 
 requirements
+- pimatic (https://github.com/pimatic/pimatic)
+- pimatic-shell-execute (https://github.com/pimatic/pimatic-shell-execute)
 - one variable @ pimatic
 - variableDevice @ pimatic
-- php with curl
+- php-cli with curl (apt-get install php5-cli)
+- fritzbox router with enabled upnp feature
 
 device to show variable @ gui
 ````
