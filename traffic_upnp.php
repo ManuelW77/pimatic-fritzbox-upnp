@@ -60,10 +60,19 @@ function FindKey($text,$key) {
 	}
 	return $tmp;
 }
-
 function update($host, $user, $pass, $variable, $value)
 {
-	shell_exec("curl --insecure -X PATCH --header \"Content-Type:application/json\" --data '{\"type\": \"value\", \"valueOrExpression\": \"$value\"}' --user \"$user:$pass\" http://$host/api/variables/$variable >/dev/null 2>&1");
-	return true;
+        $data = '{"type": "value", "valueOrExpression": "'.$value.'"}';
+        $url = "http://".$host.":80/api/variables/".$variable;
+        $headers = array('Content-Type: application/json');
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
+        curl_setopt($ch, CURLOPT_USERPWD, "$user:$pass");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_exec($ch);
+        curl_close($ch);
 }
 ?>
