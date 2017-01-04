@@ -10,7 +10,7 @@ $data_stats = GetAddonInfos();
 //$value = "Down: ". round($data_stats['NewByteReceiveRate']/1024,2) . " kB/s | Up: ". round($data_stats['NewByteSendRate']/1024,2) . " kB/s";
 $value = '{"Down":'. round($data_stats['NewByteReceiveRate']/1024,2) .',"Up": '. round($data_stats['NewByteSendRate']/1024,2) .'}';
 //echo $value;
-shell_exec("mosquitto_pub -h ". $mqtt_server ." -t ". $mqtt_topic ." -m ". $value);
+shell_exec("mosquitto_pub -h '". $mqtt_server ."' -t '". $mqtt_topic ."' -m '". $value ."'");
 
 function GetAddonInfos() {
 	$data_url = '/igdupnp/control/WANCommonIFC1';
