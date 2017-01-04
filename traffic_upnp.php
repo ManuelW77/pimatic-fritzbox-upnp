@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-$fritzbox_host = "192.168.170.1";
+$fritzbox_host = "192.168.1.1";
 $pimatic_host = "192.168.170.40";
 $pimatic_user = "admin";
 $pimatic_pass = "";
