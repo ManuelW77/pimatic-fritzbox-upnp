@@ -1,14 +1,15 @@
 #!/usr/bin/php
 <?php
 $fritzbox_host = "192.168.1.1";
-$mqtt_topic = "fritzbox/traffic";
 $mqtt_server = "192.168.1.10";
+$mqtt_topic = "fritzbox/traffic";
 
 /* nothing to change below this line */
 
 $data_stats = GetAddonInfos();
 //$value = "Down: ". round($data_stats['NewByteReceiveRate']/1024,2) . " kB/s | Up: ". round($data_stats['NewByteSendRate']/1024,2) . " kB/s";
-$value = '{"Down":'. round($data_stats['NewByteReceiveRate']/1024,2) .',"Up": '. round($data_stats['NewByteSendRate']/1024,2) .'}';
+$value = '{"rate": {"down":'. round($data_stats['NewByteReceiveRate']/1024,2) .',"up": '. round($data_stats['NewByteSendRate']/1024,2) .'},';
+$value .= '"gesamt":{"down":'. round($data_stats['NewTotalBytesReceived']/1024/1024,2) .',"up": '. round($data_stats['NewTotalBytesSendSent']/1024/1024,2) .'}';
 //echo $value;
 shell_exec("mosquitto_pub -h '". $mqtt_server ."' -t '". $mqtt_topic ."' -m '". $value ."'");
 
