@@ -9,9 +9,10 @@ $pimatic_bw_variable = "fritzbox-bw-current";
 /* nothing to change below this line */
 
 $data_stats = GetAddonInfos();
-$value = "Down: ". round($data_stats['NewByteReceiveRate']/1024,2) . " kB/s | Up: ". round($data_stats['NewByteSendRate']/1024,2) . " kB/s";
-//echo $value."\n";
-update($pimatic_host, $pimatic_user, $pimatic_pass, $pimatic_bw_variable, $value);
+//$value = "Down: ". round($data_stats['NewByteReceiveRate']/1024,2) . " kB/s | Up: ". round($data_stats['NewByteSendRate']/1024,2) . " kB/s";
+$value = '{"Down":'. round($data_stats['NewByteReceiveRate']/1024,2) .',"Up": '. round($data_stats['NewByteSendRate']/1024,2) .'}';
+echo $value;
+//update($pimatic_host, $pimatic_user, $pimatic_pass, $pimatic_bw_variable, $value);
 
 function GetAddonInfos() {
 	$data_url = '/igdupnp/control/WANCommonIFC1';
