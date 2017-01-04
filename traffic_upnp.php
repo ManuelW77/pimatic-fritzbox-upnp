@@ -1,17 +1,16 @@
 #!/usr/bin/php
 <?php
 $fritzbox_host = "192.168.1.1";
-$pimatic_host = "192.168.170.40";
-$pimatic_user = "admin";
-$pimatic_pass = "";
-$pimatic_bw_variable = "fritzbox-bw-current";
+$mqtt_topic = "fritzbox/traffic";
+$mqtt_server = "192.168.1.10";
 
 /* nothing to change below this line */
 
 $data_stats = GetAddonInfos();
 //$value = "Down: ". round($data_stats['NewByteReceiveRate']/1024,2) . " kB/s | Up: ". round($data_stats['NewByteSendRate']/1024,2) . " kB/s";
 $value = '{"Down":'. round($data_stats['NewByteReceiveRate']/1024,2) .',"Up": '. round($data_stats['NewByteSendRate']/1024,2) .'}';
-echo $value;
+//echo $value;
+shell_exec("mosquitto_pub -h ". $mqtt_server ." -t ". $mqtt_topic ." -m ". $value);
 //update($pimatic_host, $pimatic_user, $pimatic_pass, $pimatic_bw_variable, $value);
 
 function GetAddonInfos() {
