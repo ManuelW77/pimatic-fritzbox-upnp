@@ -11,7 +11,6 @@ $data_stats = GetAddonInfos();
 $value = '{"Down":'. round($data_stats['NewByteReceiveRate']/1024,2) .',"Up": '. round($data_stats['NewByteSendRate']/1024,2) .'}';
 //echo $value;
 shell_exec("mosquitto_pub -h ". $mqtt_server ." -t ". $mqtt_topic ." -m ". $value);
-//update($pimatic_host, $pimatic_user, $pimatic_pass, $pimatic_bw_variable, $value);
 
 function GetAddonInfos() {
 	$data_url = '/igdupnp/control/WANCommonIFC1';
@@ -59,20 +58,5 @@ function FindKey($text,$key) {
 		}
 	}
 	return $tmp;
-}
-function update($host, $user, $pass, $variable, $value)
-{
-        $data = '{"type": "value", "valueOrExpression": "'.$value.'"}';
-        $url = "http://".$host.":80/api/variables/".$variable;
-        $headers = array('Content-Type: application/json');
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
-        curl_setopt($ch, CURLOPT_USERPWD, "$user:$pass");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_exec($ch);
-        curl_close($ch);
 }
 ?>
